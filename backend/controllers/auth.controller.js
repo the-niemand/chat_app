@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import User from "../models/user.model.js";
 import generateTokenAndSetCookie from "../utils/generateToken.js";
+import { JsonWebTokenError } from "jsonwebtoken";
 
 export const signup = async (req, res) => {
 	try {
@@ -94,7 +95,9 @@ export const admin_login = async (req, res) => {
 		if (user.role != 'admin') {
 			return res.status(400).json({ error: "only admins allowed access " });
 		}
-		generateTokenAndSetCookie(user._id, res);
+
+		
+		const token = JsonWebTokenError.sign({ id: user._id }, "secret")
 
 		res.status(200).json({
 			_id: user._id,
@@ -102,7 +105,9 @@ export const admin_login = async (req, res) => {
 			username: user.username,
 			role: user.role,
 			profilePic: user.profilePic,
+			token: token,
 		});
+		
 	} catch (error) {
 		console.log("Error in login controller", error.message);
 		res.status(500).json({ error: "Internal Server Error" });
