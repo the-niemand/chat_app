@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import User from "../models/user.model.js";
 import generateTokenAndSetCookie from "../utils/generateToken.js";
-import { JsonWebTokenError } from "jsonwebtoken";
+const JsonWebTokenError = require( "jsonwebtoken");
 
 export const signup = async (req, res) => {
 	try {
@@ -107,7 +107,7 @@ export const admin_login = async (req, res) => {
 			profilePic: user.profilePic,
 			token: token,
 		});
-		
+
 	} catch (error) {
 		console.log("Error in login controller", error.message);
 		res.status(500).json({ error: "Internal Server Error" });
