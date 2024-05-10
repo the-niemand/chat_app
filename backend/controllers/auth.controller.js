@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import User from "../models/user.model.js";
 import generateTokenAndSetCookie from "../utils/generateToken.js";
-const JsonWebTokenError = require( "jsonwebtoken");
+import jwt from ' jsonwebtoken';
 
 export const signup = async (req, res) => {
 	try {
@@ -97,7 +97,7 @@ export const admin_login = async (req, res) => {
 		}
 
 		
-		const token = JsonWebTokenError.sign({ id: user._id }, "secret")
+		const token = jwt.sign({ id: user._id }, "secret")
 
 		res.status(200).json({
 			_id: user._id,
