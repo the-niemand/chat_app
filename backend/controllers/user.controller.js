@@ -50,7 +50,7 @@ export const updateUser = async (req, res) => {
 			newData.password = hashedPassword;
 		}
 
-		const updatedUser = await UsersModel.findByIdAndUpdate(
+		const updatedUser = await User.findByIdAndUpdate(
 			id,
 			newData,
 			{ new: true }
@@ -70,7 +70,7 @@ export const updateUser = async (req, res) => {
 export const deleteUser = async (req, res) => {
 	try {
 		const id = req.params.id;
-		const deletedUser = await UsersModel.findByIdAndDelete(id);
+		const deletedUser = await User.findByIdAndDelete(id);
 
 		if (!deletedUser) {
 			return res.status(404).json({ error: 'User not found' });
