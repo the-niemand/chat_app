@@ -1,18 +1,30 @@
 import User from "../models/user.model.js";
+import Conversation from "../models/conversation.model.js";
 import bcrypt from "bcryptjs";
+
 
 export const getUsersForSidebar = async (req, res) => {
 	try {
 		const loggedInUserId = req.user._id;
 
-		const filteredUsers = await User.find({ _id: { $ne: loggedInUserId } }).select("-password");
+		const conversations = await Conversation.find({ participants: loggedInUserId, messages: { $exists: true, $ne: [] } });
+		const participantIds = conversations.map((conversation) => {
+			return conversation.participants.filter((participant) => participant.toString() !== loggedInUserId.toString());
+		}).flat();
 
-		res.status(200).json(filteredUsers);
+		// Fetch user information for the extracted participant IDs
+		const members = await User.find({ _id: { $in: participantIds } });
+
+		res.status(200).json(members);
 	} catch (error) {
 		console.error("Error in getUsersForSidebar: ", error.message);
 		res.status(500).json({ error: "Internal server error" });
 	}
 };
+
+
+
+
 
 export const getAdminForSidebar = async (req, res) => {
 	try {
@@ -30,6 +42,9 @@ export const getAdminForSidebar = async (req, res) => {
 		res.status(500).json({ error: "Internal server error" });
 	}
 };
+
+
+
 export const getAllUsers = async (req, res) => {
 	try {
 		const Users = await User.find()

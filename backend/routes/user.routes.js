@@ -4,8 +4,8 @@ import { getUsersForSidebar, getAdminForSidebar, getAllUsers, getUserById, updat
 
 const router = express.Router();
 
-router.get("/", protectRoute, getUsersForSidebar);
-router.get("/admin", protectRoute, getAdminForSidebar);
+router.post("/", protectRoute, getUsersForSidebar);
+router.post("/admin", protectRoute, getAdminForSidebar);
 router.get("/fetchUsers", getAllUsers);
 router.get("/fetchUser/:id", getUserById);
 router.put("/updateUserById/:id", updateUser);
