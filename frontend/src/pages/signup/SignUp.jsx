@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import useSignup from "../../hooks/useSignup";
+import LoginBg from '../../assets/bg.jpg'
+
 
 const SignUp = () => {
 	const [inputs, setInputs] = useState({
@@ -8,6 +10,7 @@ const SignUp = () => {
 		username: "",
 		password: "",
 		confirmPassword: "",
+		role: "member"
 
 	});
 
@@ -19,147 +22,93 @@ const SignUp = () => {
 	};
 
 	return (
-		<div className='flex flex-col items-center justify-center min-w-96 mx-auto'>
-			<div className='w-full p-6 rounded-lg shadow-md bg-white'>
-				<h1 className='text-3xl font-bold text-center text-blue-500'>
-					Sign Up
-				</h1>
 
-				<form onSubmit={handleSubmit} className="flex flex-col gap-4">
-					<div>
-						<label className='label p-2'>
-							<span className='text-base label-text'>Full Name</span>
-						</label>
-						<input
-							type='text'
-							placeholder='John Doe'
-							className='w-full input input-bordered  h-10'
-							value={inputs.fullName}
-							onChange={(e) => setInputs({ ...inputs, fullName: e.target.value })}
-						/>
+		<div className="flex flex-col flex-auto w-full h-screen">
+			<div className="h-full">
+				<div className="grid lg:grid-cols-3 h-full">
+					<div className="bg-[#FF4D30] bg-cover lg:flex bg-no-repeat hidden" style={{ backgroundImage: `url(${LoginBg})` }}></div>
+
+					<div className="col-span-2 flex justify-center items-center">
+						<div className="min-w-[650] px-8">
+							<div className="mb-8">
+								<h1 className="text-3xl font-medium text-slate-800">
+									Register
+								</h1>
+								<p className="text-slate-800"> Please enter your credentails to sign up!</p>
+							</div>
+
+							<form onSubmit={handleSubmit}>
+
+
+
+
+
+
+								<div className="mb-3">
+									<label className="font-medium mb-2 flex text-slate-800">Full Name</label>
+									<input type="text" placeholder="Enter your username" className="w-full border rounded-md bg-transparent border-gray-400 p-3 text-slate-800"
+										value={inputs.fullName}
+										onChange={(e) => setInputs({ ...inputs, fullName: e.target.value })}
+									/>
+								</div>
+
+
+
+								<div className="mb-3" >
+									<label className="font-medium mb-2 flex text-slate-800">
+										Username
+									</label>
+									<input type="text" placeholder="Enter your username" className="w-full border rounded-md bg-transparent border-gray-400 p-3 text-slate-800"
+										value={inputs.username}
+										onChange={(e) => setInputs({ ...inputs, username: e.target.value })}
+									/>
+								</div>
+
+
+
+								<div className="mb-3">
+									<label className="font-medium mb-2 flex text-slate-800">Password</label>
+									<input type="password" placeholder="Enter your password" className="w-full border rounded-md bg-transparent border-gray-400 p-3 text-slate-800"
+										value={inputs.password}
+										onChange={(e) => setInputs({ ...inputs, password: e.target.value })}
+									/>
+								</div>
+
+								<div className="mb-3">
+									<label className="font-medium mb-2 flex text-slate-800">
+										Confirm Password
+									</label>
+									<input
+										type='password'
+										placeholder='Confirm Password'
+										className="w-full border rounded-md bg-transparent border-gray-400 p-3 text-slate-800"
+										value={inputs.confirmPassword}
+										onChange={(e) => setInputs({ ...inputs, confirmPassword: e.target.value })}
+									/>
+								</div>
+
+
+								<Link to='/login' className='text-sm  hover:underline hover:text-violent-600 inline-block  mb-6'>
+									Already have an account?
+								</Link>
+
+
+
+
+								<div>
+									<button className='block bg-[#FF4D30] opacity-85 hover:bg-[#FF4D30] hover:opacity-100 text-white w-full py-2 px-8 rounded mb-2 transition duration-200' disabled={loading}>
+										{loading ? <span className='loading loading-spinner'></span> : "Sign Up"}
+									</button>
+								</div>
+
+							</form>
+						</div>
 					</div>
+				</div>
 
-					<div>
-						<label className='label p-2 '>
-							<span className='text-base label-text'>Username</span>
-						</label>
-						<input
-							type='text'
-							placeholder='johndoe'
-							className='w-full input input-bordered h-10'
-							value={inputs.username}
-							onChange={(e) => setInputs({ ...inputs, username: e.target.value })}
-						/>
-					</div>
-
-					<div>
-						<label className='label'>
-							<span className='text-base label-text'>Password</span>
-						</label>
-						<input
-							type='password'
-							placeholder='Enter Password'
-							className='w-full input input-bordered h-10'
-							value={inputs.password}
-							onChange={(e) => setInputs({ ...inputs, password: e.target.value })}
-						/>
-					</div>
-
-					<div>
-						<label className='label'>
-							<span className='text-base label-text'>Confirm Password</span>
-						</label>
-						<input
-							type='password'
-							placeholder='Confirm Password'
-							className='w-full input input-bordered h-10'
-							value={inputs.confirmPassword}
-							onChange={(e) => setInputs({ ...inputs, confirmPassword: e.target.value })}
-						/>
-					</div>
-
-					
-
-					<Link
-						to={"/login"}
-						className='text-sm hover:underline hover:text-blue-600 mt-2 inline-block'
-						href='#'
-					>
-						Already have an account?
-					</Link>
-
-					<div>
-						<button className='btn btn-block btn-sm mt-2 border bg-slate-700 border-slate-700' disabled={loading}>
-							{loading ? <span className='loading loading-spinner'></span> : "Sign Up"}
-						</button>
-					</div>
-				</form>
 			</div>
+
 		</div>
 	);
 };
 export default SignUp;
-
-// STARTER CODE FOR THE SIGNUP COMPONENT
-// import GenderCheckbox from "./GenderCheckbox";
-
-// const SignUp = () => {
-// 	return (
-// 		<div className='flex flex-col items-center justify-center min-w-96 mx-auto'>
-// 			<div className='w-full p-6 rounded-lg shadow-md bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0'>
-// 				<h1 className='text-3xl font-semibold text-center text-gray-300'>
-// 					Sign Up <span className='text-blue-500'> ChatApp</span>
-// 				</h1>
-
-// 				<form>
-// 					<div>
-// 						<label className='label p-2'>
-// 							<span className='text-base label-text'>Full Name</span>
-// 						</label>
-// 						<input type='text' placeholder='John Doe' className='w-full input input-bordered  h-10' />
-// 					</div>
-
-// 					<div>
-// 						<label className='label p-2 '>
-// 							<span className='text-base label-text'>Username</span>
-// 						</label>
-// 						<input type='text' placeholder='johndoe' className='w-full input input-bordered h-10' />
-// 					</div>
-
-// 					<div>
-// 						<label className='label'>
-// 							<span className='text-base label-text'>Password</span>
-// 						</label>
-// 						<input
-// 							type='password'
-// 							placeholder='Enter Password'
-// 							className='w-full input input-bordered h-10'
-// 						/>
-// 					</div>
-
-// 					<div>
-// 						<label className='label'>
-// 							<span className='text-base label-text'>Confirm Password</span>
-// 						</label>
-// 						<input
-// 							type='password'
-// 							placeholder='Confirm Password'
-// 							className='w-full input input-bordered h-10'
-// 						/>
-// 					</div>
-
-// 					<GenderCheckbox />
-
-// 					<a className='text-sm hover:underline hover:text-blue-600 mt-2 inline-block' href='#'>
-// 						Already have an account?
-// 					</a>
-
-// 					<div>
-// 						<button className='btn btn-block btn-sm mt-2 border border-slate-700'>Sign Up</button>
-// 					</div>
-// 				</form>
-// 			</div>
-// 		</div>
-// 	);
-// };
-// export default SignUp;
